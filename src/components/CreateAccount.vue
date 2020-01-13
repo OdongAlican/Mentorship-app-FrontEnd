@@ -1,5 +1,4 @@
 <template>
-  <v-app>
     <v-container class="general">
       <v-layout column>
         <v-flex>
@@ -13,8 +12,9 @@
           <v-card flat >
             <div class="mx-4">
             <v-text-field 
+                v-model="email"
+                :rules="[rules.required, rules.email]"
                 label="Email Address"
-                v-model="Email"
             ></v-text-field>
             </div>
           </v-card>
@@ -62,7 +62,7 @@
       </v-layout>
         <div class="my-0 btnSize mx-6">
         <v-btn block color="primary" cols="10">
-            Sign with Email
+            Sign up with Email
         </v-btn>
       </div>
       <div>
@@ -73,10 +73,23 @@
         </router-link>
       </div>
     </v-container>
-  </v-app>
 </template>
 <script>
 export default {
+  data () {
+      return {
+        title: 'Preliminary report',
+        email: '',
+        rules: {
+          required: value => !!value || 'Required.',
+          counter: value => value.length <= 20 || 'Max 20 characters',
+          email: value => {
+            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            return pattern.test(value) || 'Invalid e-mail.'
+          },
+        },
+      }
+  }  
 };
 </script>
 <style  scoped> 

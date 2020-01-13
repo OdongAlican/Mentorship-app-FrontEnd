@@ -1,12 +1,11 @@
 <template>
-  <v-app>
-    <v-container class="blue">
+    <v-container>
       <v-layout>
-        <v-flex xs12 md4 lg3 class="sideMenu white--text pa-7">
-          <div>
+        <v-flex xs6 md4 lg3 class="sideMenu white--text pa-7">
+          <div class="yellow">
             <v-img 
             :src="path" 
-            class="logo"
+            class="logo imageSize"
             ></v-img>
           </div>
           <div class="subtitle-1 ml-7 mb-10 mt-10">
@@ -22,7 +21,7 @@
                       :src="loginType.photo" >
                     </v-img>
                   </v-flex>
-                  <v-flex xs10 md10 ml-2 mt-1>
+                  <v-flex xs12 md10 ml-2 mt-1>
                     <label class="caption">
                       {{loginType.type}}
                     </label>
@@ -30,12 +29,11 @@
                 </v-layout>
           </div>
         </v-flex>
-        <v-flex xs12 md4 lg4 class="rightSide">
-            <router-view></router-view>
+        <v-flex xs6 md5 lg4 >
+            <router-view class="helel"></router-view>
         </v-flex>
       </v-layout>
     </v-container>
-  </v-app>
 </template>
 <script>
 export default {
@@ -52,7 +50,7 @@ export default {
         type: "Signin with google", photo: "/google+_logo.png", backgroundColor: "google_color"
       }
     ], 
-    path: "/Mentorship Logo.PNG"
+    path: "/mentorship logo.png"
   }),
 };
 </script>
@@ -60,6 +58,7 @@ export default {
 .sideMenu {
   background : #2D324E;
   height: 500px;
+  margin-left: 200px;
 }
 .logo {
   width: 200px;

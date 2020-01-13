@@ -1,15 +1,14 @@
 <template>
   <v-app>
-    <sign-up/>
+    <sign-up
+    class="ma-auto"/>
   </v-app>
 </template>
-
 <script>
 import SignUp from './components/SignUp';
 
 export default {
   name: 'App',
-
   components: {
     SignUp,
   },
@@ -23,7 +22,6 @@ export default {
 .general{
     background: #FFFFFF;
     height: 500px;
-    width: 370px;
 }
 a{
   text-decoration: none
@@ -34,7 +32,9 @@ a{
 a:hover {
   text-decoration: underline
 }
-.rightSide{
+
+.helel {
   height: 500px;
 }
+
 </style>
