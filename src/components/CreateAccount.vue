@@ -22,6 +22,7 @@
             <div class="mx-4">
             <v-text-field 
                 label="Full Names"
+                :rules="[rulesName.required, rulesName.min]"
                 v-model="Names"
             ></v-text-field>
             </div>
@@ -29,8 +30,15 @@
           <v-card flat>
             <div class="mx-4">
             <v-text-field 
+                v-model="password"
+                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                :rules="[rulesPassword.required, rulesPassword.min]"
+                :type="show1 ? 'text' : 'password'"
+                name="input-10-1"
                 label="Password"
-                v-model="Password"
+                hint="At least 8 characters"
+                counter
+                @click:append="show1 = !show1"
             ></v-text-field>
             </div>
           </v-card>
@@ -38,7 +46,10 @@
             <div class="mx-4">
             <v-text-field 
                 label="Confirm Password"
-                v-model="PasswordConfirm"
+                :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                :rules="[confirmPassword.confirm]"
+                :type="show2 ? 'text' : 'password'"
+                @click:append="show2 = !show2"
             ></v-text-field>
             </div>
           </v-card>
@@ -78,8 +89,8 @@
 export default {
   data () {
       return {
-        title: 'Preliminary report',
         email: '',
+        Names: '',
         rules: {
           required: value => !!value || 'Required.',
           counter: value => value.length <= 20 || 'Max 20 characters',
@@ -88,6 +99,25 @@ export default {
             return pattern.test(value) || 'Invalid e-mail.'
           },
         },
+
+         rulesName: {
+          required: value => !!value || 'Required.',
+          min: v => v.length >= 5 || 'Min 5 characters',
+        },
+
+        show1: false,
+        show2: false,
+        password: '',
+        rulesPassword: {
+          required: value => !!value || 'Required.',
+          min: v => v.length >= 8 || 'Min 8 characters',
+          emailMatch: () => ('The email and password you entered don\'t match'),
+        },
+        confirmPassword: {
+          confirm: value => this.password == value || 'Password do not match.',
+        },
+        
+
       }
   }  
 };
