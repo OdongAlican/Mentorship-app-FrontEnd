@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import Axios from 'axios'
 
-Vue.use(Vuex)
+Vue.use(Vuex, Axios)
 
 export default new Vuex.Store({
   state: {
@@ -9,7 +10,5 @@ export default new Vuex.Store({
   mutations: {
   },
   actions: {
-  },
-  modules: {
-  }
-})
+    }
+  })

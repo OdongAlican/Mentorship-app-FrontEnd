@@ -1,40 +1,41 @@
 <template>
-  <v-app>
-    <sign-up
-    class="ma-auto"/>
+  <v-app class="grey lighten-4">
+    <router-view></router-view>
   </v-app>
 </template>
 <script>
-import SignUp from './components/SignUp';
-
 export default {
-  name: 'App',
-  components: {
-    SignUp,
-  },
-
-  data: () => ({
-    //
-  }),
+  name: "App",
+  components: {},
+  data: () => ({})
 };
 </script>
 <style>
-.general{
-    background: #FFFFFF;
-    height: 500px;
+.general {
+  background: #ffffff;
+  height: 500px;
 }
-a{
-  text-decoration: none
+a {
+  text-decoration: none;
 }
-.btnSize{
-    width: 300px;
+.btnSize {
+  width: 300px;
 }
 a:hover {
-  text-decoration: underline
+  text-decoration: underline;
 }
-
 .helel {
   height: 500px;
 }
+.backgroundColor {
+  background-color: #2d324e !important;
+}
 
+.variousSections {
+  background-color: lightgray;
+  width: 80%;
+  height: 98%;
+  margin-left: 19.5%;
+  margin-top: 0.5%;
+}
 </style>
