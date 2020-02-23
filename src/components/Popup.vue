@@ -2,15 +2,11 @@
   <div class="text-center">
     <v-dialog v-model="dialog" width="700">
       <template v-slot:activator="{ on }">
-        <v-btn color="success" dark v-on="on">
-          Create a Session
-        </v-btn>
+        <v-btn color="success" dark v-on="on">Create a Session</v-btn>
       </template>
 
       <v-card>
-        <v-card-title class="headline grey lighten-2" primary-title>
-          Create a new session
-        </v-card-title>
+        <v-card-title class="headline grey lighten-2" primary-title>Create a new session</v-card-title>
 
         <v-card-text>
           <v-form class="px-3">
@@ -49,15 +45,8 @@
                     </template>
                     <v-date-picker v-model="startDate" scrollable>
                       <v-spacer></v-spacer>
-                      <v-btn text color="primary" @click="modal = false"
-                        >Cancel</v-btn
-                      >
-                      <v-btn
-                        text
-                        color="primary"
-                        @click="$refs.dialogstartDate.save(startDate)"
-                        >OK</v-btn
-                      >
+                      <v-btn text color="primary" @click="modal = false">Cancel</v-btn>
+                      <v-btn text color="primary" @click="$refs.dialogstartDate.save(startDate)">OK</v-btn>
                     </v-date-picker>
                   </v-dialog>
                 </v-col>
@@ -82,23 +71,14 @@
                     </template>
                     <v-date-picker v-model="endDate" scrollable>
                       <v-spacer></v-spacer>
-                      <v-btn text color="primary" @click="modal = false"
-                        >Cancel</v-btn
-                      >
-                      <v-btn
-                        text
-                        color="primary"
-                        @click="$refs.dialogendDate.save(endDate)"
-                        >OK</v-btn
-                      >
+                      <v-btn text color="primary" @click="modal = false">Cancel</v-btn>
+                      <v-btn text color="primary" @click="$refs.dialogendDate.save(endDate)">OK</v-btn>
                     </v-date-picker>
                   </v-dialog>
                 </v-col>
               </v-flex>
             </v-layout>
-            <v-btn flat class="success mx-0 mt-2" @click="submit">
-              Add Session</v-btn
-            >
+            <v-btn flat class="success mx-0 mt-2" @click="submit">Add Session</v-btn>
           </v-form>
         </v-card-text>
 
@@ -106,9 +86,7 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="dialog = false">
-            Cancel
-          </v-btn>
+          <v-btn color="primary" text @click="dialog = false">Cancel</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -120,7 +98,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      mentorNames: ["Nyeko", "Alican", "Keny", "Christopher"],
+      mentorNames: [],
       sessionNames: ["Java", "React", "Ruby", "Javascript"],
       dialog: false,
       dialogstartDate: false,
@@ -149,9 +127,17 @@ export default {
   },
   async mounted() {
     await axios
-      .get("")
-      .then()
-      .catch();
+      .get("http://localhost:3000/api/mentors")
+      .then(response => {
+        let newArray = response.data;
+
+        newArray.forEach(mentor => {
+          console.log(mentor.firstName + " " + mentor.lastName);
+          this.mentorNames.push(mentor.firstName + " " + mentor.lastName);
+          console.log(this.mentorNames);
+        });
+      })
+      .catch(err => console.log(err));
   }
 };
 </script>
