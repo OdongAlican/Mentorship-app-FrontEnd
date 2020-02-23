@@ -1,5 +1,5 @@
 <template>
-  <v-app class="grey lighten-4">
+  <v-app class="grey lighten-4 mb-4">
     <router-view></router-view>
   </v-app>
 </template>
