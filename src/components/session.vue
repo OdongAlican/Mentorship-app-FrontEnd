@@ -11,13 +11,7 @@
             <v-flex xs2 md3>
               <v-tooltip top>
                 <template v-slot:activator="{ on }">
-                  <v-btn
-                    small
-                    flat
-                    color="grey lighten-1"
-                    @click="sortBySession"
-                    v-on="on"
-                  >
+                  <v-btn small flat color="grey lighten-1" @click="sortBySession" v-on="on">
                     <v-icon small left color="grey darken-2">mdi-folder</v-icon>
                     <div class="caption text-lowercase">By Session name</div>
                   </v-btn>
@@ -28,16 +22,8 @@
             <v-flex xs2 md2>
               <v-tooltip top>
                 <template v-slot:activator="{ on }">
-                  <v-btn
-                    small
-                    flat
-                    color="grey lighten-1"
-                    @click="sortByMentor"
-                    v-on="on"
-                  >
-                    <v-icon left small color="grey darken-2"
-                      >mdi-account</v-icon
-                    >
+                  <v-btn small flat color="grey lighten-1" @click="sortByMentor" v-on="on">
+                    <v-icon left small color="grey darken-2">mdi-account</v-icon>
                     <div class="caption text-lowercase">By Mentor name</div>
                   </v-btn>
                 </template>
@@ -46,12 +32,7 @@
             </v-flex>
           </v-layout>
         </v-flex>
-        <v-card
-          v-for="session in sessions"
-          :key="session.id"
-          class="mt-1 pt-2"
-          flat
-        >
+        <v-card v-for="session in sessions" :key="session.id" class="mt-1 pt-2" flat>
           <v-flex xs12 md12 class="pl-8">
             <v-layout row wrap>
               <v-flex xs6 sm4 md3>
@@ -60,7 +41,7 @@
               </v-flex>
               <v-flex xs6 sm4 md3>
                 <div class="caption grey--text">Mentor</div>
-                <div>{{ session.mentor }}</div>
+                <div>{{ session.mentor.firstName }}</div>
               </v-flex>
               <v-flex xs6 sm4 md2>
                 <div class="caption grey--text">Start Date</div>
@@ -87,6 +68,7 @@
 </template>
 <script>
 /* eslint-disable no-console */
+import axios from "axios";
 import PopUp from "./Popup";
 export default {
   components: {
@@ -94,26 +76,7 @@ export default {
   },
   data() {
     return {
-      sessions: [
-        {
-          name: "Python",
-          mentor: "Nyeko Walter",
-          start: "1.12.2019",
-          end: "4.12.2019"
-        },
-        {
-          name: "Angular",
-          mentor: "Akena Walter",
-          start: "1.12.2019",
-          end: "4.12.2019"
-        },
-        {
-          name: "React",
-          mentor: "BOpirao Walter",
-          start: "1.12.2019",
-          end: "4.12.2019"
-        }
-      ]
+      sessions: []
     };
   },
   methods: {
@@ -123,6 +86,16 @@ export default {
     sortByMentor() {
       this.sessions.sort((n1, n2) => (n1.mentor < n2.mentor ? -1 : 1));
     }
+  },
+  async mounted() {
+    await axios
+      .get("http://localhost:3000/api/mentorshipsessions")
+      .then(response => {
+        this.sessions = response.data;
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 };
 </script>

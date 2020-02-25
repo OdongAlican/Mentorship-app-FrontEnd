@@ -11,10 +11,13 @@
         <v-card-text>
           <v-form class="px-3">
             <v-select
-              :items="mentorNames"
+              :items="mentorObjects"
               label="Mentor Name"
+              name="mentor"
+              item-text="firstName"
               dense
-              v-model="mentorName"
+              v-model="mentorObject"
+              return-object
               prepend-inner-icon="mdi-account"
             ></v-select>
             <v-select
@@ -98,44 +101,52 @@ import axios from "axios";
 export default {
   data() {
     return {
-      mentorNames: [],
-      sessionNames: ["Java", "React", "Ruby", "Javascript"],
+      mentorObjects: [],
+      sessionNames: [
+        "JavaSpring",
+        "ReactJs",
+        "RubyRails",
+        "Javascript",
+        "Python"
+      ],
       dialog: false,
       dialogstartDate: false,
       dialogendDate: false,
       sessionName: "",
-      mentorName: "",
+      mentorObject: {},
       startDate: "",
       endDate: ""
     };
   },
   methods: {
     async submit() {
-      const mentor = this.mentorName;
-      const session = this.sessionName;
+      const mentor = this.mentorObject;
+      const mentorId = mentor._id;
+      const name = this.sessionName;
       const start = this.startDate;
       const end = this.endDate;
       const data = {
-        mentor,
-        session,
+        name,
         start,
         end
       };
       console.log(data);
-      await axios.post("", data);
+      await axios
+        .post(`http://localhost:3000/api/mentors/${mentorId}/sessions`, data)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   },
   async mounted() {
     await axios
       .get("http://localhost:3000/api/mentors")
       .then(response => {
-        let newArray = response.data;
-
-        newArray.forEach(mentor => {
-          console.log(mentor.firstName + " " + mentor.lastName);
-          this.mentorNames.push(mentor.firstName + " " + mentor.lastName);
-          console.log(this.mentorNames);
-        });
+        console.log(response.data);
+        this.mentorObjects = response.data;
       })
       .catch(err => console.log(err));
   }

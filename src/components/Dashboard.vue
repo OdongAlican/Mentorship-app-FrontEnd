@@ -9,7 +9,7 @@
           </v-container>
         </v-flex>
         <v-flex xs12 md4 class="ml-2">
-          <v-layout column wrap>
+          <v-layout column>
             <v-flex xs6 md6>
               <v-card class="grey lighten-2">
                 <pie-chart v-if="loaded" :data="ChartData" :options="chartOptions"></pie-chart>
@@ -121,7 +121,13 @@ export default {
         this.ChartData = {
           hoverBackgroundColor: "red",
           hoverBorderWidth: 5,
-          labels: ["JavaScript", "Ruby", "Java", "React", "Python"],
+          labels: [
+            "JavaSpring",
+            "ReactJs",
+            "RubyRails",
+            "Javascript",
+            "Python"
+          ],
           datasets: [
             {
               label: "Data One",
@@ -132,7 +138,13 @@ export default {
                 "#059BFF",
                 "#2D324E"
               ],
-              data: [1, 7, 5, 3, 5]
+              data: [
+                results.JavaSpring,
+                results.ReactJs,
+                results.RubyRails,
+                results.Javascript,
+                results.Python
+              ]
             }
           ]
         };
