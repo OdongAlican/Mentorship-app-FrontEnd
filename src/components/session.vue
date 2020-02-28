@@ -32,7 +32,7 @@
             </v-flex>
           </v-layout>
         </v-flex>
-        <v-card v-for="session in sessions" :key="session.id" class="mt-1 pt-2" flat>
+        <v-card v-for="session in sessions" :key="session._id" class="mt-1 pt-2" flat>
           <v-flex xs12 md12 class="pl-8">
             <v-layout row wrap>
               <v-flex xs6 sm4 md3>
@@ -53,11 +53,21 @@
               </v-flex>
               <v-flex xs6 sm4 md1>
                 <div class="caption grey--text">Edit</div>
-                <v-icon right small color="blue ">mdi-pencil</v-icon>
+                <v-icon
+                  right
+                  small
+                  color="blue "
+                  @click="editSession(session, session._id)"
+                >mdi-pencil</v-icon>
               </v-flex>
               <v-flex xs6 sm4 md1>
                 <div class="caption grey--text">Delete</div>
-                <v-icon right small color="red ">mdi-delete</v-icon>
+                <v-icon
+                  right
+                  small
+                  color="red "
+                  @click="deleteSession(session, session._id)"
+                >mdi-delete</v-icon>
               </v-flex>
             </v-layout>
           </v-flex>
@@ -85,6 +95,20 @@ export default {
     },
     sortByMentor() {
       this.sessions.sort((n1, n2) => (n1.mentor < n2.mentor ? -1 : 1));
+    },
+    async deleteSession(session, id) {
+      const index = this.sessions.indexOf(session);
+      await axios
+        .delete(`http://localhost:3000/api/mentorshipsessions/${id}`)
+        .then(response => {
+          console.log(response);
+          this.sessions.splice(index, 1);
+        })
+        .catch(err => console.log(err));
+    },
+
+    async editSession(session, id) {
+      console.log(session, id);
     }
   },
   async mounted() {

@@ -8,7 +8,7 @@
             <charts v-if="loaded" :chartdata="chartdata" :options="options"></charts>
           </v-container>
         </v-flex>
-        <v-flex xs12 md4 class="ml-2">
+        <v-flex xs12 md4 class="ml-4">
           <v-layout column>
             <v-flex xs6 md6>
               <v-card class="grey lighten-2">
@@ -16,7 +16,7 @@
               </v-card>
             </v-flex>
             <v-flex xs6 md6>
-              <v-container class="red">the lower Section</v-container>
+              <v-container class="grey lighten-2">the lower Section</v-container>
             </v-flex>
           </v-layout>
         </v-flex>
