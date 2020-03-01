@@ -94,8 +94,12 @@ export default {
       this.sessions.sort((n1, n2) => (n1.name < n2.name ? -1 : 1));
     },
     sortByMentor() {
-      this.sessions.sort((n1, n2) => (n1.mentor < n2.mentor ? -1 : 1));
+      this.sessions.sort((n1, n2) =>
+        n1.mentor.firstName < n2.mentor.firstName ? -1 : 1
+      );
     },
+
+    showModal() {},
     async deleteSession(session, id) {
       const index = this.sessions.indexOf(session);
       await axios
@@ -108,7 +112,15 @@ export default {
     },
 
     async editSession(session, id) {
-      console.log(session, id);
+      let mentor = session.mentor;
+      let mentorId = mentor._id;
+      console.log(mentorId, id);
+      await axios
+        .put(`http://localhost:3000/api/mentors/${mentorId}/sessions/${id}`)
+        .then(response => {
+          console.log(response);
+        })
+        .catch(err => console.log(err));
     }
   },
   async mounted() {

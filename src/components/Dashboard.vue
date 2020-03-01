@@ -4,19 +4,30 @@
     <v-container class="my-5">
       <v-layout row wrap>
         <v-flex xs12 md5>
+          <v-card flat class="light-blue accent-4 mb-1">
+            <v-card-title class="white--text subtitle-1 bold">Graphical Representation of Mentors</v-card-title>
+            <v-card-subtitle class="white--text .body-1">Total number of Menors: {{ mentorsNumber }}</v-card-subtitle>
+          </v-card>
           <v-container class="grey lighten-2">
             <charts v-if="loaded" :chartdata="chartdata" :options="options"></charts>
           </v-container>
         </v-flex>
         <v-flex xs12 md4 class="ml-4">
           <v-layout column>
-            <v-flex xs6 md6>
-              <v-card class="grey lighten-2">
-                <pie-chart v-if="loaded" :data="ChartData" :options="chartOptions"></pie-chart>
+            <v-flex xs6 md6 class="mb-1">
+              <v-card class="indigo lighten-1">
+                <v-card-title
+                  class="white--text subtitle-1 bold"
+                >Pie-Chart Representation of Session</v-card-title>
+                <v-card-subtitle
+                  class="white--text .body-1"
+                >Total number of Sessions: {{ sessionsNumber }}</v-card-subtitle>
               </v-card>
             </v-flex>
             <v-flex xs6 md6>
-              <v-container class="grey lighten-2">the lower Section</v-container>
+              <v-container class="grey lighten-2">
+                <pie-chart v-if="loaded" :data="ChartData" :options="chartOptions"></pie-chart>
+              </v-container>
             </v-flex>
           </v-layout>
         </v-flex>
@@ -36,7 +47,9 @@ export default {
       chartdata: null,
       options: null,
       loaded: false,
-      ChartData: null
+      ChartData: null,
+      mentorsNumber: "",
+      sessionsNumber: ""
     };
   },
   async mounted() {
@@ -45,6 +58,7 @@ export default {
       .get("http://localhost:3000/api/mentors")
       .then(response => {
         const mentors = response.data;
+        this.mentorsNumber = mentors.length;
         let results = mentors.reduce((obj, mentor) => {
           obj[mentor.expertize] = (obj[mentor.expertize] || 0) + 1;
           return obj;
@@ -52,25 +66,25 @@ export default {
 
         this.loaded = true;
         this.chartdata = {
-          labels: ["Javascript", "React", "PHP", "Laravel", "Python", "Java"],
+          labels: ["Javascript", "React", "Angular", "Ruby", "Python", "Java"],
           datasets: [
             {
               label: "# Mentors",
               data: [
                 results.JavaScript,
                 results.ReactJs,
-                4,
-                6,
+                results.Angular,
+                results.RubyRails,
                 results.Python,
-                1
+                results.JavaSpring
               ],
               backgroundColor: [
-                "rgba(255, 99, 132, 1)",
-                "rgba(54, 162, 235, 1)",
-                "rgba(255, 99, 132, 1)",
-                "rgba(54, 162, 235, 1)",
-                "rgba(255, 99, 132, 1)",
-                "rgba(54, 162, 235, 1)"
+                "#DCC61B",
+                "#61DAFB",
+                "#C3002F",
+                "#CC342D",
+                "#3870A1",
+                "#507D9B"
               ],
               borderColor: [
                 "rgba(255, 99, 132, 0.2)",
@@ -111,6 +125,7 @@ export default {
       .get("http://localhost:3000/api/mentorshipsessions")
       .then(response => {
         const sessions = response.data;
+        this.sessionsNumber = sessions.length;
         let results = sessions.reduce((obj, session) => {
           obj[session.name] = (obj[session.name] || 0) + 1;
           return obj;
@@ -132,11 +147,11 @@ export default {
             {
               label: "Data One",
               backgroundColor: [
-                "#41B883",
-                "#E46651",
-                "#00D8FF",
-                "#059BFF",
-                "#2D324E"
+                "#507D9B",
+                "#61DAFB",
+                "#CC342D",
+                "#DCC61B",
+                "#3870A1"
               ],
               data: [
                 results.JavaSpring,

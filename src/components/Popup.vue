@@ -32,7 +32,7 @@
                 <v-col cols="12" sm="12" md="6">
                   <v-dialog
                     ref="dialogstartDate"
-                    v-model="modal"
+                    v-model="dialogstartDate"
                     :return-value.sync="startDate"
                     persistent
                     width="290px"
@@ -46,11 +46,17 @@
                         v-on="on"
                       ></v-text-field>
                     </template>
-                    <v-date-picker v-model="startDate" scrollable>
-                      <v-spacer></v-spacer>
-                      <v-btn text color="primary" @click="modal = false">Cancel</v-btn>
-                      <v-btn text color="primary" @click="$refs.dialogstartDate.save(startDate)">OK</v-btn>
-                    </v-date-picker>
+                    <v-card>
+                      <v-date-picker v-model="startDate" scrollable>
+                        <v-spacer></v-spacer>
+                        <v-btn text color="primary" @click="modal = false">Cancel</v-btn>
+                        <v-btn
+                          text
+                          color="primary"
+                          @click="$refs.dialogstartDate.save(startDate)"
+                        >OK</v-btn>
+                      </v-date-picker>
+                    </v-card>
                   </v-dialog>
                 </v-col>
               </v-flex>
@@ -58,7 +64,7 @@
                 <v-col cols="12" sm="12" md="6">
                   <v-dialog
                     ref="dialogendDate"
-                    v-model="modal"
+                    v-model="dialogendDate"
                     :return-value.sync="endDate"
                     persistent
                     width="290px"
@@ -72,11 +78,13 @@
                         v-on="on"
                       ></v-text-field>
                     </template>
-                    <v-date-picker v-model="endDate" scrollable>
-                      <v-spacer></v-spacer>
-                      <v-btn text color="primary" @click="modal = false">Cancel</v-btn>
-                      <v-btn text color="primary" @click="$refs.dialogendDate.save(endDate)">OK</v-btn>
-                    </v-date-picker>
+                    <v-card>
+                      <v-date-picker v-model="endDate" scrollable>
+                        <v-spacer></v-spacer>
+                        <v-btn text color="primary" @click="modal = false">Cancel</v-btn>
+                        <v-btn text color="primary" @click="$refs.dialogendDate.save(endDate)">OK</v-btn>
+                      </v-date-picker>
+                    </v-card>
                   </v-dialog>
                 </v-col>
               </v-flex>
@@ -89,7 +97,7 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="dialog = false">Cancel</v-btn>
+          <v-btn color="primary" text @click="dialog = false">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

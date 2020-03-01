@@ -49,7 +49,7 @@ export default {
           this.mentors.push(element);
         });
       })
-      .catch();
+      .catch(err => console.log(err));
   }
 };
 </script>
