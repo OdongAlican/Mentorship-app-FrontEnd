@@ -8,7 +8,7 @@
             <pop-up></pop-up>
           </v-card>
           <v-layout row class="mb-3 ml-1">
-            <v-flex xs2 md3>
+            <v-flex xs2 md2>
               <v-tooltip top>
                 <template v-slot:activator="{ on }">
                   <v-btn small flat color="grey lighten-1" @click="sortBySession" v-on="on">
@@ -35,21 +35,21 @@
         <v-card v-for="session in sessions" :key="session._id" class="mt-1 pt-2" flat>
           <v-flex xs12 md12 class="pl-8">
             <v-layout row wrap>
-              <v-flex xs6 sm4 md3>
+              <v-flex xs6 sm4 md2>
                 <div class="caption grey--text">Session Title</div>
                 <div>{{ session.name }}</div>
               </v-flex>
-              <v-flex xs6 sm4 md3>
+              <v-flex xs6 sm4 md2>
                 <div class="caption grey--text">Mentor</div>
                 <div>{{ session.mentor.firstName }}</div>
               </v-flex>
-              <v-flex xs6 sm4 md2>
+              <v-flex xs6 sm4 md3>
                 <div class="caption grey--text">Start Date</div>
-                <div>{{ session.start }}</div>
+                <div>{{ new Date(session.start).toLocaleString() }}</div>
               </v-flex>
-              <v-flex xs6 sm4 md2>
+              <v-flex xs6 sm4 md3>
                 <div class="caption grey--text">End Date</div>
-                <div>{{ session.end }}</div>
+                <div>{{ new Date (session.end).toLocaleString() }}</div>
               </v-flex>
               <v-flex xs6 sm4 md1>
                 <div class="caption grey--text">Edit</div>
