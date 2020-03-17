@@ -1,7 +1,5 @@
 <template>
-  <v-app>
     <Recover/>
-  </v-app>
 </template>
 <script>
 import Recover from '../components/Recover'
@@ -11,5 +9,3 @@ export default {
     }
 };
 </script>
-<style  scoped> 
-</style>
